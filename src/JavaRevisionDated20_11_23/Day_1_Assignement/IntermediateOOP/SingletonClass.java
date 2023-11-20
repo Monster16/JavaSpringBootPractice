@@ -2,8 +2,10 @@ package JavaRevisionDated20_11_23.Day_1_Assignement.IntermediateOOP;
 
 public class SingletonClass {
     private static SingletonClass instance;
-    private SingletonClass(){
-    }
+
+    // Because of this private method getting compilation error.
+//    private SingletonClass(){
+//    }
 
     public static SingletonClass getInstance() {
         if (instance == null){
