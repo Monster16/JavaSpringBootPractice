@@ -32,5 +32,6 @@ public class TotalAndAverage {
         System.out.println("Average score of sub1 = "+ ((double)(marks[0][0]+marks[0][1]+marks[0][2])/3));
         System.out.println("Average score of sub2 = "+ ((double)(marks[1][0]+marks[1][1]+marks[1][2])/3));
         System.out.println("Average score of sub3 = "+ ((double)(marks[2][0]+marks[2][1]+marks[2][2])/3));
+        
     }
 }
