@@ -1,4 +1,4 @@
-package com.assignment.assignmentPractice.day_2.Assignments;
+package com.assignment.assignmentPractice.day2Assignments;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.assignment.assignmentPractice.day_2.Assignments.AssignmentService.Assignment_2_Service;
 import com.assignment.assignmentPractice.entity.UserCredential;
+import com.assignment.assignmentPractice.service.Assignment_2_Service;
+
 
 @RestController
 @RequestMapping("/assignment2")

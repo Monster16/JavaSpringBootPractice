@@ -1,4 +1,4 @@
-package com.assignment.assignmentPractice.day_2.Assignments.AssignmentService;
+package com.assignment.assignmentPractice.service;
 
 public interface Assignment_2_Service {
 	

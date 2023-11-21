@@ -1,4 +1,4 @@
-package com.assignment.assignmentPractice.day_2.Assignments;
+package com.assignment.assignmentPractice.day2Assignments;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
