@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+//@Controller
+//@ResponseBody
 @RequestMapping("/assignment1")
 public class Assignment1_HelloWorld {
 
