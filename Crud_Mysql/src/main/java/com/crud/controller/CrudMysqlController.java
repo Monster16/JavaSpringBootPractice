@@ -40,8 +40,8 @@ public class CrudMysqlController {
 		log.info("INSIDE IF FINDING ALLSTUDENTS INFO: {}");
 			return new ResponseEntity<Object>(list, HttpStatus.OK);
 		} else {
-			log.error("INSIDE ELSE BLOCK SOMETHING WENT WRONG!!!");
-			return new ResponseEntity<Object>("OPPS!!! SOMETHING WENT WRONG", HttpStatus.NOT_FOUND);
+			log.error("INSIDE ELSE BLOCK NO DATA FOUND!!!");
+			return new ResponseEntity<Object>("OPPS!!! NO DATA FOUND", HttpStatus.NOT_FOUND);
 		}
 	}
 
