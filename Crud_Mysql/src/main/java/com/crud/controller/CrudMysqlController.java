@@ -1,7 +1,6 @@
 package com.crud.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -57,12 +56,13 @@ public class CrudMysqlController {
 		
 			boolean isStudentExistsById = crudMysqlRepo.existsById(sId);
 			if (isStudentExistsById) {
-				log.info("INSIDE IF BLOCK UPDATING STUDENT: {}");
+				log.info("INSIDE IF BLOCK CHECKING STUDENT ID: {}");
 				if (studentInfo.getsId() == sId) {
+					log.info("INSIDE IF BLOCK OF IF BLOCK UPDATING STUDENT: {}");
 					crudMysqlService.updateStudentByuId(studentInfo);
 					return new ResponseEntity<Object>(studentInfo, HttpStatus.OK);
 				} else {
-					
+					log.info("INSIDE IF BLOCK OF ELSE BLOCK UID MISMATCH: {}");
 					return new ResponseEntity<Object>("UID MISMATCH {}", HttpStatus.BAD_REQUEST);
 				}
 			} else {

@@ -10,7 +10,7 @@ public interface CrudMysqlService {
 
 	List<StudentInfo> findAll();
 	
-	Optional<StudentInfo> findBysId(Long sId);
+//	Optional<StudentInfo> findBysId(Long sId);
 	
 	StudentInfo addStudent(StudentInfo studentInfo);
 	

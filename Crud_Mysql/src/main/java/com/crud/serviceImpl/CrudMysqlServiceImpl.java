@@ -10,7 +10,9 @@ import com.crud.model.StudentInfo;
 import com.crud.repository.CrudMysqlRepo;
 import com.crud.service.CrudMysqlService;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class CrudMysqlServiceImpl implements CrudMysqlService{
 	
@@ -20,19 +22,21 @@ public class CrudMysqlServiceImpl implements CrudMysqlService{
 	@Override
 	public List<StudentInfo> findAll() {
 		// TODO Auto-generated method stub
+		log.info("INSIDE SERVICEIMPL FINDING ALLSTUDENTS INFO: {}");
 		return crudMysqlRepo.findAll();
 	}
 
-	@Override
-	public Optional<StudentInfo> findBysId(Long sId) {
-		// TODO Auto-generated method stub
-		return crudMysqlRepo.findById(sId);
-	}
+//	@Override
+//	public Optional<StudentInfo> findBysId(Long sId) {
+//		// TODO Auto-generated method stub
+//		
+//		return crudMysqlRepo.findById(sId);
+//	}
 
 	@Override
 	public StudentInfo addStudent(StudentInfo studentInfo) {
 		// TODO Auto-generated method stub
-		
+		log.info("INSIDE SERVICEIMPL ADDING STUDENT: {}");
 		if(!crudMysqlRepo.existsById(studentInfo.getsId())) {
 		studentInfo.setsId(generateUniqueID());
 		}
@@ -41,13 +45,15 @@ public class CrudMysqlServiceImpl implements CrudMysqlService{
 
 	@Override
 	public StudentInfo updateStudentByuId(StudentInfo studentInfo) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stubY
+		log.info("INSIDE SERVICEIMPL UPDATING STUDENT: {}");
 		return crudMysqlRepo.save(studentInfo);
 	}
 
 	@Override
 	public void deleteUserBysId(Long sId) {
 		// TODO Auto-generated method stub
+		log.info("INSIDE SERVICEIMPL DELETING STUDENT: {}");
 		crudMysqlRepo.deleteById(sId);
 		
 	}
