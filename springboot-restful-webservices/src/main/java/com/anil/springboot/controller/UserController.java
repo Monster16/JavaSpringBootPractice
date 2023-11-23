@@ -1,5 +1,6 @@
 package com.anil.springboot.controller;
 
+import com.anil.springboot.dto.UserDto;
 import com.anil.springboot.entity.User;
 import com.anil.springboot.service.UserService;
 import lombok.AllArgsConstructor;
@@ -23,8 +24,8 @@ public class UserController {
      * @return
      */
     @PostMapping("/create")
-    public ResponseEntity<User> createUser(@RequestBody User user){
-        User saveUser = userService.createUser(user);
+    public ResponseEntity<UserDto> createUser(@RequestBody UserDto user){
+        UserDto saveUser = userService.createUser(user);
         return new ResponseEntity<>(saveUser, HttpStatus.CREATED);
     }
 
@@ -35,8 +36,8 @@ public class UserController {
      * @return
      */
     @GetMapping("{id}")
-    public ResponseEntity<User> getUserById(@PathVariable("id") Long userId){
-        User user = userService.getUserById(userId);
+    public ResponseEntity<UserDto> getUserById(@PathVariable("id") Long userId){
+        UserDto user = userService.getUserById(userId);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
@@ -46,8 +47,8 @@ public class UserController {
      * @return
      */
     @GetMapping("/users")
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> users = userService.getAllUsers();
+    public ResponseEntity<List<UserDto>> getAllUsers() {
+        List<UserDto> users = userService.getAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
@@ -59,10 +60,10 @@ public class UserController {
      * @return
      */
     @PutMapping("{id}")
-    public ResponseEntity<User> updateUser(@PathVariable("id") Long userId,
-                                           @RequestBody User user) {
+    public ResponseEntity<UserDto> updateUser(@PathVariable("id") Long userId,
+                                           @RequestBody UserDto user) {
        user.setId(userId);
-       User updatedUser = userService.updateUser(user);
+       UserDto updatedUser = userService.updateUser(user);
        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 

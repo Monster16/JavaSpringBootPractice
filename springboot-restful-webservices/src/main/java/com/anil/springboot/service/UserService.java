@@ -1,18 +1,19 @@
 package com.anil.springboot.service;
 
+import com.anil.springboot.dto.UserDto;
 import com.anil.springboot.entity.User;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
-    User createUser(User user);
+    UserDto createUser(UserDto userDto);
 
-    User getUserById(Long id);
+    UserDto getUserById(Long id);
 
-    List<User> getAllUsers();
+    List<UserDto> getAllUsers();
 
-    User updateUser(User user);
+    UserDto updateUser(UserDto user);
 
     void deleteUser(Long id);
 }
