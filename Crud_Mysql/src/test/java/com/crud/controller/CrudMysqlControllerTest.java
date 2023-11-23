@@ -1,19 +1,15 @@
 package com.crud.controller;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.doNothing;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -56,9 +52,7 @@ class CrudMysqlControllerTest {
 
 	@Test
 	void testGetAllStudents() throws Exception {
-//		StudentInfo student1 = new StudentInfo(1L, "Anil Singh", 25, 50000L);
-//        StudentInfo student2 = new StudentInfo(2L, "Amit Singh", 28, 60000L);
-//        
+        
         List<StudentInfo> list = new ArrayList<>();
         StudentInfo student1 = new StudentInfo();
         student1.setsId(1L);
@@ -132,6 +126,23 @@ class CrudMysqlControllerTest {
 
 	}
 	
-	
+	@Test
+	void testDeleteStudentBysId() throws Exception {
+		Mockito.when(crudMysqlRepo.existsById(Mockito.any())).thenReturn(true);
+		doNothing().when(crudMysqlService).deleteUserBysId(Mockito.any());
+		
+		mockMvc.perform(delete("/api/delete/{sId}",1))
+                .andExpect(status().isOk());
 
+	}
+	
+	@Test
+	void testDeleteStudentByWrongsId() throws Exception {
+		Mockito.when(crudMysqlRepo.existsById(Mockito.any())).thenReturn(false);
+		doNothing().when(crudMysqlService).deleteUserBysId(Mockito.any());
+		
+		mockMvc.perform(delete("/api/delete/{sId}",1))
+                .andExpect(status().isNotFound());
+
+	}
 }
