@@ -3,7 +3,9 @@ package com.v1.departmentservice.repo;
 import com.v1.departmentservice.entity.Department;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
+
 public interface DepartmentRepository extends JpaRepository<Department, Long> {
 
-    Department getByDepartmentCode(String departmentCode);
+    Optional<Department> getByDepartmentCode(String departmentCode);
 }

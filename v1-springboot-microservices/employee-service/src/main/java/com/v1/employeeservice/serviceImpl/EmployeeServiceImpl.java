@@ -2,6 +2,7 @@ package com.v1.employeeservice.serviceImpl;
 
 import com.v1.employeeservice.dto.EmployeeDto;
 import com.v1.employeeservice.entity.Employee;
+import com.v1.employeeservice.exception.ResourceNotFoundException;
 import com.v1.employeeservice.mapper.AutoEmployeeMapper;
 import com.v1.employeeservice.repo.EmployeeRepository;
 import com.v1.employeeservice.service.EmployeeService;
@@ -64,7 +65,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto getEmployeeById(Long id) {
-        Employee employee = employeeRepository.findById(id).get();
+        Employee employee = employeeRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Employee", "id", id)
+        );
 
         /**
          * Directly Converting EmployeeDto to Employee JPA Entity
