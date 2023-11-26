@@ -30,7 +30,7 @@ public class EmployeeController {
 
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<APIResponseDto> getEmployeeById(@PathVariable("id") Long employeeId){
         APIResponseDto apiResponseDto = employeeService.getEmployeeById(employeeId);
         return new ResponseEntity<>(apiResponseDto, HttpStatus.OK);

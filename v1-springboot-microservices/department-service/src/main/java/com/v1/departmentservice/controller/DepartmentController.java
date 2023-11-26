@@ -32,7 +32,7 @@ public class DepartmentController {
      * @param departmentCode
      * @return
      */
-    @GetMapping("/get/{department-code}")
+    @GetMapping("{department-code}")
     public ResponseEntity<DepartmentDto> getDepartmentByCode(@PathVariable("department-code") String departmentCode){
         DepartmentDto departmentDto =  departmentService.getByDepartmentCode(departmentCode);
         return new ResponseEntity<>(departmentDto, HttpStatus.OK);
