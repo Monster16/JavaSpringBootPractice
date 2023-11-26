@@ -7,6 +7,7 @@ import com.v1.employeeservice.entity.Employee;
 import com.v1.employeeservice.exception.ResourceNotFoundException;
 import com.v1.employeeservice.mapper.AutoEmployeeMapper;
 import com.v1.employeeservice.repo.EmployeeRepository;
+import com.v1.employeeservice.service.APIClient;
 import com.v1.employeeservice.service.EmployeeService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -26,6 +27,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     private RestTemplate restTemplate;
 
     private WebClient webClient;
+
+    private APIClient apiClient;
 
     @Override
     public EmployeeDto createEmployee(EmployeeDto employeeDto) {
@@ -88,11 +91,15 @@ public class EmployeeServiceImpl implements EmployeeService {
         /**
          * Microservice Call via WebClient
          */
-        DepartmentDto departmentDto = webClient.get()
-                .uri("http://localhost:8081/api/departments/get/" + employee.getDepartmentCode())
-                .retrieve()
-                .bodyToMono(DepartmentDto.class)
-                .block();
+//        DepartmentDto departmentDto = webClient.get()
+//                .uri("http://DEPARTMENT-SERVICE/api/departments/get/" + employee.getDepartmentCode())
+//                .retrieve()
+//                .bodyToMono(DepartmentDto.class)
+//                .block();
+        /**
+         * Microservice Call via Feign Client
+         */
+        DepartmentDto departmentDto = apiClient.getDepartment(employee.getDepartmentCode());
         /**
          * Directly Converting EmployeeDto to Employee JPA Entity
          */
