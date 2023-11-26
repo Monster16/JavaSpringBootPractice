@@ -1,5 +1,6 @@
 package com.v1.employeeservice.controller;
 
+import com.v1.employeeservice.dto.APIResponseDto;
 import com.v1.employeeservice.dto.EmployeeDto;
 import com.v1.employeeservice.entity.Employee;
 import com.v1.employeeservice.service.EmployeeService;
@@ -30,8 +31,8 @@ public class EmployeeController {
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable("id") Long employeeId){
-        EmployeeDto employeeDto = employeeService.getEmployeeById(employeeId);
-        return new ResponseEntity<>(employeeDto, HttpStatus.OK);
+    public ResponseEntity<APIResponseDto> getEmployeeById(@PathVariable("id") Long employeeId){
+        APIResponseDto apiResponseDto = employeeService.getEmployeeById(employeeId);
+        return new ResponseEntity<>(apiResponseDto, HttpStatus.OK);
     }
 }

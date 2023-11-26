@@ -1,5 +1,7 @@
 package com.v1.employeeservice.serviceImpl;
 
+import com.v1.employeeservice.dto.APIResponseDto;
+import com.v1.employeeservice.dto.DepartmentDto;
 import com.v1.employeeservice.dto.EmployeeDto;
 import com.v1.employeeservice.entity.Employee;
 import com.v1.employeeservice.exception.ResourceNotFoundException;
@@ -8,7 +10,10 @@ import com.v1.employeeservice.repo.EmployeeRepository;
 import com.v1.employeeservice.service.EmployeeService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
 @AllArgsConstructor
@@ -17,6 +22,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeRepository employeeRepository;
 
     private ModelMapper modelMapper;
+
+    private RestTemplate restTemplate;
+
+    private WebClient webClient;
 
     @Override
     public EmployeeDto createEmployee(EmployeeDto employeeDto) {
@@ -64,11 +73,26 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public EmployeeDto getEmployeeById(Long id) {
+    public APIResponseDto getEmployeeById(Long id) {
         Employee employee = employeeRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Employee", "id", id)
         );
 
+        /**
+         * Microservice call via RestTemplate
+         */
+//        ResponseEntity<DepartmentDto> responseEntity = restTemplate.getForEntity(
+//                "http://localhost:8081/api/departments/get/" +employee.getDepartmentCode(),
+//                DepartmentDto.class);
+//        DepartmentDto departmentDto = responseEntity.getBody();
+        /**
+         * Microservice Call via WebClient
+         */
+        DepartmentDto departmentDto = webClient.get()
+                .uri("http://localhost:8081/api/departments/get/" + employee.getDepartmentCode())
+                .retrieve()
+                .bodyToMono(DepartmentDto.class)
+                .block();
         /**
          * Directly Converting EmployeeDto to Employee JPA Entity
          */
@@ -87,6 +111,9 @@ public class EmployeeServiceImpl implements EmployeeService {
          * Using Map Struct
          */
         EmployeeDto employeeDto = AutoEmployeeMapper.AUTO_EMPLOYEE_MAPPER.mapToEmployeeDto(employee);
-        return employeeDto;
+        APIResponseDto apiResponseDto = new APIResponseDto();
+        apiResponseDto.setEmployeeDto(employeeDto);
+        apiResponseDto.setDepartmentDto(departmentDto);
+        return apiResponseDto;
     }
 }
