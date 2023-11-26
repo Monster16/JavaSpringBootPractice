@@ -9,8 +9,12 @@ import com.v1.employeeservice.mapper.AutoEmployeeMapper;
 import com.v1.employeeservice.repo.EmployeeRepository;
 import com.v1.employeeservice.service.APIClient;
 import com.v1.employeeservice.service.EmployeeService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -20,15 +24,17 @@ import org.springframework.web.reactive.function.client.WebClient;
 @AllArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeServiceImpl.class);
+
     private EmployeeRepository employeeRepository;
 
     private ModelMapper modelMapper;
 
-    private RestTemplate restTemplate;
+//    private RestTemplate restTemplate;
 
     private WebClient webClient;
 
-    private APIClient apiClient;
+//    private APIClient apiClient;
 
     @Override
     public EmployeeDto createEmployee(EmployeeDto employeeDto) {
@@ -75,8 +81,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         return saveEmployeeDto;
     }
 
+//    @CircuitBreaker(name = "${spring.application.name}", fallbackMethod = "getDefaultDepartment")
+    @Retry(name = "${spring.application.name}", fallbackMethod = "getDefaultDepartment")
     @Override
     public APIResponseDto getEmployeeById(Long id) {
+        LOGGER.info("inside getEmployeeById() method");
         Employee employee = employeeRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Employee", "id", id)
         );
@@ -91,15 +100,15 @@ public class EmployeeServiceImpl implements EmployeeService {
         /**
          * Microservice Call via WebClient
          */
-//        DepartmentDto departmentDto = webClient.get()
-//                .uri("http://DEPARTMENT-SERVICE/api/departments/get/" + employee.getDepartmentCode())
-//                .retrieve()
-//                .bodyToMono(DepartmentDto.class)
-//                .block();
+        DepartmentDto departmentDto = webClient.get()
+                .uri("http://DEPARTMENT-SERVICE/api/departments/" + employee.getDepartmentCode())
+                .retrieve()
+                .bodyToMono(DepartmentDto.class)
+                .block();
         /**
          * Microservice Call via Feign Client
          */
-        DepartmentDto departmentDto = apiClient.getDepartment(employee.getDepartmentCode());
+//        DepartmentDto departmentDto = apiClient.getDepartment(employee.getDepartmentCode());
         /**
          * Directly Converting EmployeeDto to Employee JPA Entity
          */
@@ -118,6 +127,25 @@ public class EmployeeServiceImpl implements EmployeeService {
          * Using Map Struct
          */
         EmployeeDto employeeDto = AutoEmployeeMapper.AUTO_EMPLOYEE_MAPPER.mapToEmployeeDto(employee);
+        APIResponseDto apiResponseDto = new APIResponseDto();
+        apiResponseDto.setEmployeeDto(employeeDto);
+        apiResponseDto.setDepartmentDto(departmentDto);
+        return apiResponseDto;
+    }
+
+    public APIResponseDto getDefaultDepartment(Long employeeId, Exception exception) {
+
+        LOGGER.info("inside getDefaultDepartment() method");
+
+        Employee employee = employeeRepository.findById(employeeId).get();
+
+        DepartmentDto departmentDto = new DepartmentDto();
+        departmentDto.setDepartmentName("R&D Department");
+        departmentDto.setDepartmentCode("RD001");
+        departmentDto.setDepartmentDescription("Research and Development Department");
+
+        EmployeeDto employeeDto = AutoEmployeeMapper.AUTO_EMPLOYEE_MAPPER.mapToEmployeeDto(employee);
+
         APIResponseDto apiResponseDto = new APIResponseDto();
         apiResponseDto.setEmployeeDto(employeeDto);
         apiResponseDto.setDepartmentDto(departmentDto);
