@@ -5,12 +5,10 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(name = "DEPARTMENT-SERVICE")
+@FeignClient(name = "ORGANIZATION-SERVICE")
 //@FeignClient(url = "http://localhost:8083" ,value = "DEPARTMENT-SERVICE")
-public interface APIClient {
+public interface ORGClient {
 
-    @GetMapping("/api/departments/{department-code}")
-    DepartmentDto getDepartment(@PathVariable("department-code") String departmentCode);
+    @GetMapping("/api/organizations/{code}")
+    DepartmentDto getOrganization(@PathVariable("code") String organizationCode);
 }
-
-

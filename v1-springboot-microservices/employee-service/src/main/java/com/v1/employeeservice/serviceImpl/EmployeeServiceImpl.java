@@ -3,6 +3,7 @@ package com.v1.employeeservice.serviceImpl;
 import com.v1.employeeservice.dto.APIResponseDto;
 import com.v1.employeeservice.dto.DepartmentDto;
 import com.v1.employeeservice.dto.EmployeeDto;
+import com.v1.employeeservice.dto.OrganizationDto;
 import com.v1.employeeservice.entity.Employee;
 import com.v1.employeeservice.exception.ResourceNotFoundException;
 import com.v1.employeeservice.mapper.AutoEmployeeMapper;
@@ -20,6 +21,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.time.LocalDateTime;
+
 @Service
 @AllArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
@@ -34,7 +37,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private WebClient webClient;
 
-//    private APIClient apiClient;
+    private APIClient apiClient;
 
     @Override
     public EmployeeDto createEmployee(EmployeeDto employeeDto) {
@@ -81,8 +84,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         return saveEmployeeDto;
     }
 
-//    @CircuitBreaker(name = "${spring.application.name}", fallbackMethod = "getDefaultDepartment")
-    @Retry(name = "${spring.application.name}", fallbackMethod = "getDefaultDepartment")
+    @CircuitBreaker(name = "${spring.application.name}", fallbackMethod = "getDefaultDepartment")
+//    @Retry(name = "${spring.application.name}", fallbackMethod = "getDefaultDepartment")
     @Override
     public APIResponseDto getEmployeeById(Long id) {
         LOGGER.info("inside getEmployeeById() method");
@@ -101,9 +104,15 @@ public class EmployeeServiceImpl implements EmployeeService {
          * Microservice Call via WebClient
          */
         DepartmentDto departmentDto = webClient.get()
-                .uri("http://DEPARTMENT-SERVICE/api/departments/" + employee.getDepartmentCode())
+                .uri("http://localhost:8080/api/departments/" + employee.getDepartmentCode())
                 .retrieve()
                 .bodyToMono(DepartmentDto.class)
+                .block();
+
+        OrganizationDto organizationDto = webClient.get()
+                .uri("http://localhost:8083/api/organizations/" + employee.getOrganizationCode())
+                .retrieve()
+                .bodyToMono(OrganizationDto.class)
                 .block();
         /**
          * Microservice Call via Feign Client
@@ -130,6 +139,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         APIResponseDto apiResponseDto = new APIResponseDto();
         apiResponseDto.setEmployeeDto(employeeDto);
         apiResponseDto.setDepartmentDto(departmentDto);
+        apiResponseDto.setOrganizationDto(organizationDto);
         return apiResponseDto;
     }
 
@@ -144,11 +154,18 @@ public class EmployeeServiceImpl implements EmployeeService {
         departmentDto.setDepartmentCode("RD001");
         departmentDto.setDepartmentDescription("Research and Development Department");
 
+        OrganizationDto organizationDto = new OrganizationDto();
+        organizationDto.setOrganizationName("XYZ Company");
+        organizationDto.setOrganizationDescription("XYZ_Company");
+        organizationDto.setOrganizationCode("XYZ");
+        organizationDto.setCreatedDate(LocalDateTime.now());
+
         EmployeeDto employeeDto = AutoEmployeeMapper.AUTO_EMPLOYEE_MAPPER.mapToEmployeeDto(employee);
 
         APIResponseDto apiResponseDto = new APIResponseDto();
         apiResponseDto.setEmployeeDto(employeeDto);
         apiResponseDto.setDepartmentDto(departmentDto);
+        apiResponseDto.setOrganizationDto(organizationDto);
         return apiResponseDto;
     }
 }
