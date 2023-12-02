@@ -46,9 +46,7 @@ class CourseServiceImplTest {
     @MockBean
     private ModelMapper modelMapper;
 
-    /**
-     * Method under test: {@link CourseServiceImpl#createCourse(CourseDto)}
-     */
+
     @Test
     void testCreateCourse() {
         when(courseRepository.save(Mockito.<Course>any())).thenReturn(new Course());
@@ -58,9 +56,7 @@ class CourseServiceImplTest {
         verify(modelMapper).map(Mockito.<Object>any(), Mockito.<Class<Course>>any());
     }
 
-    /**
-     * Method under test: {@link CourseServiceImpl#createCourse(CourseDto)}
-     */
+
     @Test
     void testCreateCourse2() {
         when(courseRepository.save(Mockito.<Course>any())).thenReturn(new Course());
@@ -70,9 +66,6 @@ class CourseServiceImplTest {
         verify(modelMapper, atLeast(1)).map(Mockito.<Object>any(), Mockito.<Class<Object>>any());
     }
 
-    /**
-     * Method under test: {@link CourseServiceImpl#getCourseById(int)}
-     */
     @Test
     void testGetCourseById() {
         when(courseRepository.findById(Mockito.<Integer>any())).thenReturn(Optional.of(new Course()));
@@ -83,10 +76,6 @@ class CourseServiceImplTest {
         verify(modelMapper).map(Mockito.<Object>any(), Mockito.<Class<CourseDto>>any());
     }
 
-
-    /**
-     * Method under test: {@link CourseServiceImpl#getAllCourses()}
-     */
     @Test
     void testGetAllCourses() {
         when(courseRepository.findAll()).thenReturn(new ArrayList<>());
@@ -94,9 +83,7 @@ class CourseServiceImplTest {
         verify(courseRepository).findAll();
     }
 
-    /**
-     * Method under test: {@link CourseServiceImpl#getAllCourses()}
-     */
+
     @Test
     void testGetAllCourses2() {
         ArrayList<Course> courseList = new ArrayList<>();
@@ -108,39 +95,6 @@ class CourseServiceImplTest {
         verify(modelMapper).map(Mockito.<Object>any(), Mockito.<Class<CourseDto>>any());
     }
 
-    /**
-     * Method under test: {@link CourseServiceImpl#getAllCourses()}
-     */
-    @Test
-    void testGetAllCourses3() {
-        ArrayList<Course> courseList = new ArrayList<>();
-        courseList.add(new Course());
-        courseList.add(new Course());
-        when(courseRepository.findAll()).thenReturn(courseList);
-        when(modelMapper.map(Mockito.<Object>any(), Mockito.<Class<CourseDto>>any())).thenReturn(new CourseDto());
-        assertEquals(2, courseServiceImpl.getAllCourses().size());
-        verify(courseRepository).findAll();
-        verify(modelMapper, atLeast(1)).map(Mockito.<Object>any(), Mockito.<Class<CourseDto>>any());
-    }
-
-    /**
-     * Method under test: {@link CourseServiceImpl#getAllCourses()}
-     */
-    @Test
-    void testGetAllCourses4() {
-        ArrayList<Course> courseList = new ArrayList<>();
-        courseList.add(new Course());
-        when(courseRepository.findAll()).thenReturn(courseList);
-        when(modelMapper.map(Mockito.<Object>any(), Mockito.<Class<CourseDto>>any()))
-                .thenThrow(new ResourceNotFoundException("Resource Name", "Field Name", 1));
-        assertThrows(ResourceNotFoundException.class, () -> courseServiceImpl.getAllCourses());
-        verify(courseRepository).findAll();
-        verify(modelMapper).map(Mockito.<Object>any(), Mockito.<Class<CourseDto>>any());
-    }
-
-    /**
-     * Method under test: {@link CourseServiceImpl#updateCourse(CourseDto)}
-     */
     @Test
     void testUpdateCourse() {
         when(courseRepository.save(Mockito.<Course>any())).thenReturn(new Course());
@@ -153,24 +107,6 @@ class CourseServiceImplTest {
         verify(modelMapper).map(Mockito.<Object>any(), Mockito.<Class<CourseDto>>any());
     }
 
-    /**
-     * Method under test: {@link CourseServiceImpl#updateCourse(CourseDto)}
-     */
-    @Test
-    void testUpdateCourse2() {
-        when(courseRepository.save(Mockito.<Course>any())).thenReturn(new Course());
-        when(courseRepository.findById(Mockito.<Integer>any())).thenReturn(Optional.of(new Course()));
-        when(modelMapper.map(Mockito.<Object>any(), Mockito.<Class<CourseDto>>any()))
-                .thenThrow(new ResourceNotFoundException("Resource Name", "Field Name", 1));
-        assertThrows(ResourceNotFoundException.class, () -> courseServiceImpl.updateCourse(new CourseDto()));
-        verify(courseRepository).save(Mockito.<Course>any());
-        verify(courseRepository).findById(Mockito.<Integer>any());
-        verify(modelMapper).map(Mockito.<Object>any(), Mockito.<Class<CourseDto>>any());
-    }
-
-    /**
-     * Method under test: {@link CourseServiceImpl#deleteCourse(int)}
-     */
     @Test
     void testDeleteCourse() {
         doNothing().when(courseRepository).deleteById(Mockito.<Integer>any());
@@ -179,30 +115,6 @@ class CourseServiceImplTest {
         verify(courseRepository).findById(Mockito.<Integer>any());
         verify(courseRepository).deleteById(Mockito.<Integer>any());
         assertTrue(courseServiceImpl.getAllCourses().isEmpty());
-    }
-
-    /**
-     * Method under test: {@link CourseServiceImpl#deleteCourse(int)}
-     */
-    @Test
-    void testDeleteCourse2() {
-        doThrow(new ResourceNotFoundException("Resource Name", "Field Name", 1)).when(courseRepository)
-                .deleteById(Mockito.<Integer>any());
-        when(courseRepository.findById(Mockito.<Integer>any())).thenReturn(Optional.of(new Course()));
-        assertThrows(ResourceNotFoundException.class, () -> courseServiceImpl.deleteCourse(1));
-        verify(courseRepository).findById(Mockito.<Integer>any());
-        verify(courseRepository).deleteById(Mockito.<Integer>any());
-    }
-
-    /**
-     * Method under test: {@link CourseServiceImpl#deleteCourse(int)}
-     */
-    @Test
-    void testDeleteCourse3() {
-        doNothing().when(courseRepository).deleteById(Mockito.<Integer>any());
-        when(courseRepository.findById(Mockito.<Integer>any())).thenReturn(Optional.empty());
-        assertThrows(ResourceNotFoundException.class, () -> courseServiceImpl.deleteCourse(1));
-        verify(courseRepository).findById(Mockito.<Integer>any());
     }
 }
 

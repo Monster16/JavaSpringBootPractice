@@ -15,7 +15,7 @@ import lombok.AllArgsConstructor;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/tasks")
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000")
 public class TaskController {
 	
 	private TaskService taskService;
@@ -52,5 +52,12 @@ public class TaskController {
 		
 		TaskDto savedTask = taskService.getTaskById(taskId);
 		return new ResponseEntity<>(savedTask,HttpStatus.OK);
+	}
+
+	@GetMapping("/all")
+	public ResponseEntity<Object> getAllTasks(){
+		List<TaskDto> tasks = taskService.getAllTasks();
+		return new ResponseEntity<>(tasks,HttpStatus.OK);
+
 	}
 }

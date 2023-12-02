@@ -25,9 +25,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 
 class CourseControllerTest {
-    /**
-     * Method under test: {@link CourseController#createCourse(CourseDto)}
-     */
+
     @Test
     void testCreateCourse() {
 
@@ -46,14 +44,9 @@ class CourseControllerTest {
         verify(courseRepository).save(Mockito.<Course>any());
     }
 
-    /**
-     * Method under test: {@link CourseController#getUserById(int)}
-     */
+
     @Test
     void testGetUserById() {
-        //   Diffblue Cover was unable to write a Spring test,
-        //   so wrote a non-Spring test instead.
-        //   Diffblue AI was unable to find a test
 
         CourseRepository courseRepository = mock(CourseRepository.class);
         when(courseRepository.findById(Mockito.<Integer>any())).thenReturn(Optional.of(new Course()));
@@ -74,9 +67,6 @@ class CourseControllerTest {
      */
     @Test
     void testGetAllCourses() {
-        //   Diffblue Cover was unable to write a Spring test,
-        //   so wrote a non-Spring test instead.
-        //   Diffblue AI was unable to find a test
 
         CourseRepository courseRepository = mock(CourseRepository.class);
         ArrayList<Course> courseList = new ArrayList<>();
@@ -89,9 +79,7 @@ class CourseControllerTest {
         verify(courseRepository).findAll();
     }
 
-    /**
-     * Method under test: {@link CourseController#updateUser(int, CourseDto)}
-     */
+
     @Test
     void testUpdateUser() {
 
@@ -113,9 +101,7 @@ class CourseControllerTest {
         verify(courseRepository).findById(Mockito.<Integer>any());
         assertEquals(1, course.getCourseId());
     }
-    /**
-     * Method under test: {@link CourseController#deleteUser(int)}
-     */
+
     @Test
     void testDeleteUser() {
 

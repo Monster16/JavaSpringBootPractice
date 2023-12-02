@@ -8,19 +8,7 @@ import java.time.LocalTime;
 import org.junit.jupiter.api.Test;
 
 class CourseTest {
-    /**
-     * Methods under test:
-     *
-     * <ul>
-     *   <li>{@link Course#Course()}
-     *   <li>{@link Course#setCourseId(int)}
-     *   <li>{@link Course#setCourseName(String)}
-     *   <li>{@link Course#setCourseTime(LocalTime)}
-     *   <li>{@link Course#getCourseId()}
-     *   <li>{@link Course#getCourseName()}
-     *   <li>{@link Course#getCourseTime()}
-     * </ul>
-     */
+
     @Test
     void testConstructor() {
         Course actualCourse = new Course();
@@ -34,19 +22,6 @@ class CourseTest {
         assertSame(expectedCourseTime, actualCourse.getCourseTime());
     }
 
-    /**
-     * Methods under test:
-     *
-     * <ul>
-     *   <li>{@link Course#Course(int, String, LocalTime)}
-     *   <li>{@link Course#setCourseId(int)}
-     *   <li>{@link Course#setCourseName(String)}
-     *   <li>{@link Course#setCourseTime(LocalTime)}
-     *   <li>{@link Course#getCourseId()}
-     *   <li>{@link Course#getCourseName()}
-     *   <li>{@link Course#getCourseTime()}
-     * </ul>
-     */
     @Test
     void testConstructor2() {
         Course actualCourse = new Course(1, "Course Name", LocalTime.MIDNIGHT);

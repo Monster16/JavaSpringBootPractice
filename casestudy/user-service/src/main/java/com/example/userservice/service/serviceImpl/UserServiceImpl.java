@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.example.userservice.exception.EmailAlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.modelmapper.ModelMapper;
@@ -25,9 +26,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto createUser(UserDto userDto) {
+        Optional<User> optionalUser = userRepository.findByEmail(userDto.getEmail());
+        if(optionalUser.isPresent()){
+            throw new EmailAlreadyExistsException("Email Already Exists for the User");
+        }
         User user = modelMapper.map(userDto, User.class);
         User createdUser = userRepository.save(user);
-        return modelMapper.map(createdUser, UserDto.class);
+        UserDto savedUserDto = modelMapper.map(createdUser, UserDto.class);
+        return savedUserDto;
     }
 
     @Override

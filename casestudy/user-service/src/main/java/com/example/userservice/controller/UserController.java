@@ -2,6 +2,7 @@ package com.example.userservice.controller;
 
 import java.util.List;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,13 +15,13 @@ import lombok.AllArgsConstructor;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/users")
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
 	
 	private UserService userService;
 
 	@PostMapping("/add")
-	public ResponseEntity<UserDto> createUser(@RequestBody UserDto user){
+	public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto user){
 		UserDto savedUser = userService.createUser(user);
 		return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
 	}
@@ -38,7 +39,7 @@ public class UserController {
 	}
 	
 	@PutMapping("/update/{id}")
-	public ResponseEntity<UserDto> updateUser(@PathVariable int id, 
+	public ResponseEntity<UserDto> updateUser(@Valid @PathVariable int id,
 												 @RequestBody UserDto user){
 		user.setId(id);
 		UserDto updatedUser  = userService.updateUser(user);
