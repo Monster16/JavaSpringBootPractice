@@ -5,29 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8284ee10-f9aa-49e3-886e-932b8c0172df" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/example/userservice/WebConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/example/userservice/exception/EmailAlreadyExistsException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/example/userservice/exception/ErrorDetails.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/example/userservice/exception/GlobalHandlerException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course-service/src/main/java/com/example/courseservice/controller/CourseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/course-service/src/main/java/com/example/courseservice/controller/CourseController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course-service/src/main/java/com/example/courseservice/service/serviceImpl/CourseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/course-service/src/main/java/com/example/courseservice/service/serviceImpl/CourseServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course-service/src/test/java/com/example/courseservice/controller/CourseControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/course-service/src/test/java/com/example/courseservice/controller/CourseControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course-service/src/test/java/com/example/courseservice/dto/CourseDtoTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/course-service/src/test/java/com/example/courseservice/dto/CourseDtoTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course-service/src/test/java/com/example/courseservice/entity/CourseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/course-service/src/test/java/com/example/courseservice/entity/CourseTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course-service/src/test/java/com/example/courseservice/service/serviceImpl/CourseServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/course-service/src/test/java/com/example/courseservice/service/serviceImpl/CourseServiceImplTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task-service/src/main/java/com/example/taskservice/controller/TaskController.java" beforeDir="false" afterPath="$PROJECT_DIR$/task-service/src/main/java/com/example/taskservice/controller/TaskController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-service/src/main/java/com/example/userservice/UserServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/java/com/example/userservice/UserServiceApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-service/src/main/java/com/example/userservice/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/java/com/example/userservice/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-service/src/main/java/com/example/userservice/dto/UserDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/java/com/example/userservice/dto/UserDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-service/src/main/java/com/example/userservice/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/java/com/example/userservice/entity/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-service/src/main/java/com/example/userservice/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/java/com/example/userservice/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-service/src/main/java/com/example/userservice/service/serviceImpl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/java/com/example/userservice/service/serviceImpl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend-casestudy/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend-casestudy/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend-casestudy/src/Components/Courses/Courses.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend-casestudy/src/Components/Courses/Courses.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend-casestudy/src/Components/Tasks/Task.jsx" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
